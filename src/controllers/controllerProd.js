@@ -24,12 +24,35 @@ export default {
     },
 
     async consulta(req, res){
-        const result = await db('produtos');
-
-
-        return res.send(result);
-
+        try {
+            const result = await db('produtos');
+            return res.send(result);
+            
+        } catch (error) {
+            return res.status(400).json( {erro:'400 Bad Request - Erro ao consultar produtos'})
+        }
+    },
+    async cadastro(req, res){
+        try {
+            const { nome } = req.body;
+            const { descri } = req.body;
+            const { fabricante } = req.body;
+            const { qtda } = req.body;
+            const { preco } = req.body;
+            const { custo } = req.body;
+            await db('produtos').insert({
+                nome,
+                descri,
+                fabricante,
+                qtda,
+                preco,
+                custo
+            });
+        return res.status(201).send();
+            
+        } catch (error) {
+            return res.status(400).json( {erro:'400 Bad Request - Erro ao cadastrar produtos!!'})
+        }
     }
-
 
 }
