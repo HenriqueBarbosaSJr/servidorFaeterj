@@ -14,5 +14,5 @@ app.use(json());
 app.use(routes)
 
 
-app.listen(3344, ()=> console.log('Servidor On - Porta 3344'));
+app.listen(3334, ()=> console.log('Servidor On - Porta 3334'));
 

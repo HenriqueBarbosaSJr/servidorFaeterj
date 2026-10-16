@@ -53,6 +53,40 @@ export default {
         } catch (error) {
             return res.status(400).json( {erro:'400 Bad Request - Erro ao cadastrar produtos!!'})
         }
+    },
+    async updatePro(req, res){
+        try {     
+            const { codpro } = req.params;
+            const { nome } = req.body;
+            const { descri } = req.body;
+            const { fabricante } = req.body;
+            const { qtda } = req.body;
+            const { preco } = req.body;
+            const { custo } = req.body;                
+            await db('produtos').update({
+                nome,
+                descri,
+                fabricante,
+                qtda,
+                preco,
+                custo
+            }).where({ codpro })
+            return res.status(201).send();
+        } catch (error) {
+            return res.status(400).json(  {erro:'400 Bad Request - Erro ao alterar produtos!!'});
+        }
+    },
+    async deleteFor(req, res){
+        try {
+            const { codpro } = req.params;
+            console.log(codpro);
+            
+            await db('produtos')
+                    .where({ codpro })
+                    .del();
+            return res.status(201).send();
+        } catch (error) {
+            return res.status(400).json( {erro:'400 Bad Request - Erro ao deletar produtos!!'})
+        }
     }
-
 }
